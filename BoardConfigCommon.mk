@@ -60,10 +60,10 @@ BOARD_USES_QCOM_MERGE_DTBS_SCRIPT := true
 TARGET_NEEDS_DTBOIMAGE := true
 
 # Properties
-TARGET_ODM_PROP += $(COMMON_PATH)/odm.prop
-TARGET_PRODUCT_PROP += $(COMMON_PATH)/product.prop
-TARGET_SYSTEM_EXT_PROP += $(COMMON_PATH)/system_ext.prop
-TARGET_VENDOR_PROP += $(COMMON_PATH)/vendor.prop
+TARGET_ODM_PROP += $(COMMON_PATH)/properties/odm.prop
+TARGET_PRODUCT_PROP += $(COMMON_PATH)/properties/product.prop
+TARGET_SYSTEM_EXT_PROP += $(COMMON_PATH)/properties/system_ext.prop
+TARGET_VENDOR_PROP += $(COMMON_PATH)/properties/vendor.prop
 
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/config.fs
@@ -104,19 +104,19 @@ TARGET_KERNEL_CONFIG := \
     vendor/oplus/sun_perf.config
 
 # Kernel modules
-BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(strip $(shell sed 's/#.*$$//;/^$$/d' $(COMMON_PATH)/modules.load.system_dlkm))
+BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(strip $(shell sed 's/#.*$$//;/^$$/d' $(COMMON_PATH)/configs/modules/modules.load.system_dlkm))
 BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE := $(TARGET_KERNEL_SOURCE)/modules.vendor_blocklist.msm.sun
-BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load))
+BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/configs/modules/modules.load))
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE)
 # qrtr-gunyah.ko is detected by depmod of build_utils.sh in kleaf
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := \
-    $(strip $(shell sed 's/#.*$$//;/^$$/d' $(COMMON_PATH)/modules.list.msm.sun)) \
+    $(strip $(shell sed 's/#.*$$//;/^$$/d' $(COMMON_PATH)/configs/modules/modules.list.msm.sun)) \
     qrtr-gunyah.ko
-BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load.recovery))
+BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/configs/modules/modules.load.recovery))
 BOOT_KERNEL_MODULES := $(BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD)
 SYSTEM_KERNEL_MODULES := \
     $(BOARD_SYSTEM_KERNEL_MODULES_LOAD) \
-    $(strip $(shell sed 's/#.*$$//;/^$$/d' $(COMMON_PATH)/modules.kunit))
+    $(strip $(shell sed 's/#.*$$//;/^$$/d' $(COMMON_PATH)/configs/modules/modules.kunit))
 
 TARGET_KERNEL_EXT_MODULE_ROOT := kernel/oneplus/sm8750-modules
 TARGET_KERNEL_EXT_MODULES := \
